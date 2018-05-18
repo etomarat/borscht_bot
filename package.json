@@ -1,0 +1,16 @@
+{
+  "name": "borscht_bot",
+  "version": "1.0.0",
+  "description": "Телеграм бот помогающий выбрать какой борщ приготовить",
+  "main": "index.js",
+  "repository": "git@github.com:etomarat/borscht_bot.git",
+  "author": "etomarat <etomarat@gmail.com>",
+  "license": "GNU GPL",
+  "dependencies": {
+    "eslint": "^4.19.1",
+    "google-images": "^2.1.0",
+    "lodash": "^4.17.10",
+    "telebot": "^1.2.6",
+    "uuid": "^3.2.1"
+  }
+}
