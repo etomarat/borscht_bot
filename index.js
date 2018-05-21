@@ -8,14 +8,14 @@ const bot = new TeleBot('584357222:AAEUw8rFwnF0mJbB1Kw8tOxeTaVGNcb1MTY');
 
 const soupDict = [
     'Борщ',
-    'Грибной',
-    'Крем супный',
+    'Грибной суп',
+    'Крем-суп',
     'Зеленый борщ',
     'Солянка',
-    'Фасолевый',
-    'Гороховый',
+    'Фасолевый суп',
+    'Гороховый суп',
     'Харчо',
-    'C фрикадельками'
+    'Суп с фрикадельками'
 ]
 
 // On inline query
@@ -25,28 +25,27 @@ bot.on('inlineQuery', msg => {
     console.log(`inline query: ${ query }`);
 
     // Create a new answer list object
-    const answers = bot.answerList(msg.id, {cacheTime: 1});
+    const answers = bot.answerList(msg.id, {cacheTime: 60});
     const youChose = query && `Я вижу ты хочешь ${query}`;
     const botChose = _.sample(soupDict);
     // Article
+    const searchQuery = query || botChose
+
     answers.addArticle({
         id: 'query',
         title: youChose || `Я выбрал тебе суп: ${botChose}`,
         description: `Если хочешь другой, то напиши название`,
-        message_text: 'Жми!!!'
+        message_text: searchQuery
     });
-
-    const searchQuery = query || botChose
-    console.log(searchQuery, query);
     
     return searchClient.search(searchQuery)
         .then(images => {
             _.shuffle(images).forEach((image, i) => {
+                
                 answers.addPhoto({
                     id: uuidv4().split('-')[0],
                     caption: image.description,
                     photo_url: image.url,
-                    // thumb_url: image.url,
                     thumb_url: image.thumbnail.url,
                     photo_height: 100,
                     photo_width: 200
